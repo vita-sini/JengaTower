@@ -1,4 +1,7 @@
-public static class LayerNames
+namespace GameRoot
 {
-    public const string IgnoreRaycast = "Ignore Raycast";
+    public static class LayerNames
+    {
+        public const string IgnoreRaycast = "Ignore Raycast";
+    }
 }

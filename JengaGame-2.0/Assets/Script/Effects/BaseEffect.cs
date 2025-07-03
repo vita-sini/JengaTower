@@ -16,9 +16,7 @@ namespace Effects
         private Coroutine _effectCoroutine;
         private bool _isPlaying = false;
 
-        protected BlockRegistry BlockRegistry => _blockRegistry;
         protected AudioSource AudioSource => _audioSource;
-        protected Coroutine EffectCoroutine => _effectCoroutine;
         protected bool IsPlaying => _isPlaying;
         protected AudioClip EffectSound => _effectSound;
 
@@ -38,7 +36,7 @@ namespace Effects
             _gameEvents.TurnEnd -= Stop;
         }
 
-        public virtual void Execute()
+        public void Execute()
         {
             if (_effectCoroutine != null)
                 StopCoroutine(_effectCoroutine);
@@ -46,6 +44,11 @@ namespace Effects
             _isPlaying = true;
 
             _effectCoroutine = StartCoroutine(PlayEffect());
+        }
+
+        public void InitEffect(BlockRegistry blockRegistry)
+        {
+            _blockRegistry = blockRegistry;
         }
 
         public virtual void Stop()
@@ -62,12 +65,7 @@ namespace Effects
                 AudioSource.Stop();
         }
 
-        public void InitEffect(BlockRegistry blockRegistry)
-        {
-            _blockRegistry = blockRegistry;
-        }
-
-        protected virtual void PlayEffectSound(bool loop = false)
+        protected void PlayEffectSound(bool loop = false)
         {
             if (AudioSource != null && EffectSound != null)
             {
@@ -77,7 +75,7 @@ namespace Effects
             }
         }
 
-        protected virtual IEnumerable<GameObject> GetBlocks()
+        protected IEnumerable<GameObject> GetBlocks()
         {
             return _blockRegistry?.PlacedBlocks ?? new List<GameObject>();
         }

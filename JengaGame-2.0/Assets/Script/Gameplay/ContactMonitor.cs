@@ -6,13 +6,7 @@ namespace Gameplay
 {
     public class ContactMonitor : MonoBehaviour
     {
-        private Rigidbody _rigidbody;
         private List<Collider> _contacts = new List<Collider>();
-
-        private void Start()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-        }
 
         private void OnCollisionEnter(Collision collision)
         {
